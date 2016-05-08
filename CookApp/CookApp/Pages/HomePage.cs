@@ -21,7 +21,7 @@ namespace CookWhat.Main_Page
                         Command = new Command (() => Navigation.PushAsync (new IngredientsPage ()))
                     },
                     new Button() {
-                        Text = "Οι Συνταγές μου",
+                        Text = "Οι συνταγές μου",
                         Command = new Command (() => Navigation.PushAsync (new RecipesPage ()))
                     }
                 }
