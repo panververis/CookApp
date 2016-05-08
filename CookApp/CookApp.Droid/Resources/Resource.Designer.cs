@@ -26,6 +26,8 @@ namespace CookApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::CookApp.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::CookApp.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_in = global::CookApp.Droid.Resource.Animation.abc_fade_in;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_out = global::CookApp.Droid.Resource.Animation.abc_fade_out;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_grow_fade_in_from_bottom = global::CookApp.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
