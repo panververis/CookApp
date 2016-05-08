@@ -36,6 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App\App.cs" />
+    <Compile Include="CookApp DB\DB\Database.cs" />
+    <Compile Include="CookApp DB\ISQLite.cs" />
+    <Compile Include="CookApp DB\Model\Ingredient.cs" />
+    <Compile Include="CookApp DB\Model\Recipe.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\IngredientsPage.cs" />
     <Compile Include="Pages\RecipesPage.cs" />
