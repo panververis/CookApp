@@ -35,7 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="App\App.cs" />
+    <Compile Include="App\Pages\HomePage.cs" />
+    <Compile Include="App\Pages\IngredientsPage.cs" />
+    <Compile Include="App\Pages\RecipesPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
