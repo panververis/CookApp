@@ -49,6 +49,28 @@ namespace CookApp.CookApp_DB.DB
         }
 
         /// <summary>
+        /// Check if Ingredients exist
+        /// </summary>
+        public bool CheckIfAnyIngredientsExist()
+        {
+            lock (locker)
+            {
+                return database.Table<Ingredient>().Any();
+            }
+        }
+
+        /// <summary>
+        /// Get an Ingredient Operation
+        /// </summary>
+        public Ingredient GetAnIngredient()
+        {
+            lock (locker)
+            {
+                return database.Table<Ingredient>().FirstOrDefault();
+            }
+        }
+
+        /// <summary>
         /// Get All Available Ingredients Operation
         /// </summary>
         public IEnumerable<Ingredient> GetAvailableIngredients()

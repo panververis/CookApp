@@ -1,4 +1,5 @@
-﻿using CookWhat.Pages;
+﻿using CookApp.Pages;
+using CookWhat.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CookWhat.Main_Page
 {
     public class HomePage : ContentPage
     {
+
         public HomePage()
         {
             Content = new StackLayout
@@ -27,5 +29,6 @@ namespace CookWhat.Main_Page
                 }
             };
         }
+
     }
 }
