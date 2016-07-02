@@ -12,6 +12,8 @@ namespace CookApp.Pages
     public class IngredientEditPage : ContentPage
     {
 
+        protected Ingredient _ingredient;
+
         protected Entry _DescriptionEntry;
 
         protected int? _IngredientID;
@@ -35,9 +37,12 @@ namespace CookApp.Pages
         public IngredientEditPage(int? IngredientID = null)
         {
             _IngredientID = IngredientID;
+            _ingredient = new Ingredient();
             StackLayout ingredientEditStackLayout = new StackLayout();
             _DescriptionEntry = new Entry();
+            _DescriptionEntry.SetBinding(Entry.TextProperty, "Description");
             Switch availableSwitch = new Switch();
+            availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
             Button saveIngredientButton = new Button();
             saveIngredientButton.Clicked += SaveIngredientButton_Clicked;
             saveIngredientButton.Text = "Αποθήκευση νέου υλικού";
@@ -45,14 +50,13 @@ namespace CookApp.Pages
             ingredientEditStackLayout.Children.Add(availableSwitch);
             ingredientEditStackLayout.Children.Add(saveIngredientButton);
             Content = ingredientEditStackLayout;
+            BindingContext = _ingredient;
         }
 
         private void SaveIngredientButton_Clicked(object sender, EventArgs e)
         {
-            string descriptionText = _DescriptionEntry.Text;
-            Ingredient newIngredient = new Ingredient();
-            newIngredient.Description = descriptionText;
-            DataBase.SaveItem(newIngredient);
+            DataBase.SaveItem(_ingredient);
         }
+
     }
 }
