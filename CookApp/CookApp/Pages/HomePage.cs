@@ -1,4 +1,5 @@
-﻿using CookApp.Pages;
+﻿using CookApp;
+using CookApp.Pages;
 using CookWhat.Pages;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace CookWhat.Main_Page
                 Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
                 Children = {
                     new Button() {
-                        Text = "Τα υλικά μου",
+                        Text = StringResources.sMyIngredients,
                         Command = new Command (() => Navigation.PushAsync (new IngredientsPage ()))
                     },
                     new Button() {
