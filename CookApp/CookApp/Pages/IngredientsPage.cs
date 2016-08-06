@@ -56,6 +56,7 @@ namespace CookApp.Pages
                 availableSwitch.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
                 Button editButton = new Button();
                 editButton.IsEnabled = true;
+                editButton.Image = "edit2.png";
                 editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End,false);
                 editButton.Clicked += editIngredientButton_Clicked;
 
@@ -133,15 +134,7 @@ namespace CookApp.Pages
         /// </summary>
         private void editIngredientButton_Clicked(object sender, EventArgs e)
         {
-            //if (_ingredientsListView.SelectedItem != null) {
-            //    int indexOfIngredientForEdit = 0;
-            //    indexOfIngredientForEdit = _ingredientsCollection.IndexOf(_ingredientsListView.SelectedItem as Ingredient);
-            //    Ingredient clickedIngredient = _ingredientsCollection[indexOfIngredientForEdit];
-            //} else
-            //{
             int ingredientID = Convert.ToInt32((sender as Button).CommandParameter);
-            //}
-            
             Navigation.PushAsync(new IngredientEditPage(ingredientID));
         }
 
