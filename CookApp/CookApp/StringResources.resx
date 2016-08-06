@@ -126,4 +126,7 @@
   <data name="sNewIngredient" xml:space="preserve">
     <value>Νεο Υλικο</value>
   </data>
+  <data name="sStoreIngredient" xml:space="preserve">
+    <value>Απόθήκευση Υλικού;</value>
+  </data>
 </root>

@@ -30,33 +30,81 @@ namespace CookApp.Pages
             }
         }
 
+        //the Ingredients Observable Collection
         public ObservableCollection<Ingredient> _ingredientsCollection;
+
+        //the ListView displayed
+        ListView _ingredientsListView = new ListView();
 
         public IngredientsPage()
         {
 
-            #region Old Implementation, using Labels
+            //firstly loading all of the Ingredients in the Observable Collection
+            LoadIngredients();
 
-            //fetching all the Ingredients for displaying
-            List<Ingredient> allIngredientsList = DataBase.GetAllIngredients().OrderBy(x => x.Description).ToList();
+            #region Ingredients ListView UI implementation            
 
-            //building the UI
+            //initializing the Ingredients ListView DataTemplate (ListView "format")
+            DataTemplate ingredientDataTemplate = new DataTemplate(() =>
+            {
+                Grid grid = new Grid();
+                grid.IsEnabled = true;
+
+                //initializing the Description and the "Available" switch
+                Label descriptionLabel = new Label { FontAttributes = FontAttributes.Bold };
+                Switch availableSwitch = new Switch();
+                availableSwitch.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
+                Button editButton = new Button();
+                editButton.IsEnabled = true;
+                editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End,false);
+                editButton.Clicked += editIngredientButton_Clicked;
+
+                //seting the Bindings to the above created controls
+                descriptionLabel.SetBinding(Label.TextProperty, "Description");
+                availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
+                editButton.SetBinding(Button.CommandParameterProperty, "ID");
+                availableSwitch.IsEnabled = false;
+
+                //adding the controls to the ListView
+                grid.Children.Add(descriptionLabel);
+                grid.Children.Add(availableSwitch);
+                grid.Children.Add(editButton);
+
+                return new ViewCell { View = grid };
+            });
+
+            //Initializing the basic Layout (Stack Layout)
             StackLayout ingredientsStackLayout = new StackLayout();
+
+            //Initializing the "Add Ingredient" Button
             Button addIngredientButton = new Button();
             addIngredientButton.Text = StringResources.sAddNewIngredient;
-            ingredientsStackLayout.Children.Add(addIngredientButton);
-            //foreach (Ingredient ingredient in allIngredientsList)
-            //{
-            //    ingredientsStackLayout.Children.Add(new Label() { Text = ingredient.Description, FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)) });
-            //}
-
             addIngredientButton.Clicked += AddIngredientButton_Clicked;
+            ingredientsStackLayout.Children.Add(addIngredientButton);
+
+            //instantiating the Ingredients ListView
+            //also providing the prepared DataTemplate
+            _ingredientsListView.ItemTemplate = ingredientDataTemplate;
+            _ingredientsListView.ItemsSource = _ingredientsCollection;
+            ingredientsStackLayout.Children.Add(_ingredientsListView);
 
             #endregion
 
-            #region New implementation, using ListView
+            //lastly, setting the Content of the Ingredients Content Page to the prepared Stack Layout
+            Content = ingredientsStackLayout;
+        }
 
+        #region Page Methods
+
+        #region LoadIngredients
+
+        private void LoadIngredients()
+        {
+            //fetching all the Ingredients for displaying
+            List<Ingredient> allIngredientsList = DataBase.GetAllIngredients().OrderBy(x => x.Description).ToList();
             _ingredientsCollection = new ObservableCollection<Ingredient>();
+
+            //populating the List of Ingredients
             if (allIngredientsList != null && allIngredientsList.Any())
             {
                 foreach (Ingredient ingredient in allIngredientsList)
@@ -64,35 +112,11 @@ namespace CookApp.Pages
                     _ingredientsCollection.Add(ingredient);
                 }
             }
-
-
-            DataTemplate personDataTemplate = new DataTemplate(() => {
-                Grid grid = new Grid();
-                grid.IsEnabled = false;
-                Label descriptionLabel = new Label { FontAttributes = FontAttributes.Bold };
-                Switch availableSwitch = new Switch();
-
-                descriptionLabel.SetBinding(Label.TextProperty, "Description");
-                availableSwitch.SetBinding(Switch.IsEnabledProperty, "Available");
-
-                grid.Children.Add(descriptionLabel);
-                grid.Children.Add(availableSwitch);
-
-                return new ViewCell { View = grid };
-            });
-
-
-            ListView ingredientsListView = new ListView();
-            ingredientsListView.ItemTemplate = personDataTemplate;
-            ingredientsListView.ItemsSource = _ingredientsCollection;
-            ingredientsStackLayout.Children.Add(ingredientsListView);
-
-            ingredientsListView.ItemSelected += IngredientsListView_ItemSelected;
-
-            #endregion
-
-            Content = ingredientsStackLayout;
         }
+
+        #endregion
+
+        #endregion
 
         #region Events handling
 
@@ -104,9 +128,21 @@ namespace CookApp.Pages
             Navigation.PushAsync(new IngredientEditPage());
         }
 
-        private void IngredientsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        /// <summary>
+        /// Clicked Event of the "Edit Ingredient" button
+        /// </summary>
+        private void editIngredientButton_Clicked(object sender, EventArgs e)
         {
+            //if (_ingredientsListView.SelectedItem != null) {
+            //    int indexOfIngredientForEdit = 0;
+            //    indexOfIngredientForEdit = _ingredientsCollection.IndexOf(_ingredientsListView.SelectedItem as Ingredient);
+            //    Ingredient clickedIngredient = _ingredientsCollection[indexOfIngredientForEdit];
+            //} else
+            //{
+            int ingredientID = Convert.ToInt32((sender as Button).CommandParameter);
+            //}
             
+            Navigation.PushAsync(new IngredientEditPage(ingredientID));
         }
 
         #endregion

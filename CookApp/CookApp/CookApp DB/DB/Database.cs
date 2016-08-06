@@ -60,13 +60,24 @@ namespace CookApp.CookApp_DB.DB
         }
 
         /// <summary>
-        /// Get an Ingredient Operation
+        /// Get the first Ingredient in the DB Operation
         /// </summary>
         public Ingredient GetAnIngredient()
         {
             lock (locker)
             {
                 return database.Table<Ingredient>().FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Get a specific Ingredient Operation
+        /// </summary>
+        public Ingredient GetIngredientByID(int ID)
+        {
+            lock (locker)
+            {
+                return database.Table<Ingredient>().FirstOrDefault(x => x.ID == ID);
             }
         }
 

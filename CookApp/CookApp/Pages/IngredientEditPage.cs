@@ -37,7 +37,14 @@ namespace CookApp.Pages
         public IngredientEditPage(int? IngredientID = null)
         {
             _IngredientID = IngredientID;
-            _ingredient = new Ingredient();
+            if (!_IngredientID.HasValue)
+            {
+                _ingredient = new Ingredient();
+            }
+            else
+            {
+                _ingredient = DataBase.GetIngredientByID(IngredientID.Value);
+            }
             StackLayout ingredientEditStackLayout = new StackLayout();
             _DescriptionEntry = new Entry();
             _DescriptionEntry.SetBinding(Entry.TextProperty, "Description");
@@ -45,7 +52,7 @@ namespace CookApp.Pages
             availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
             Button saveIngredientButton = new Button();
             saveIngredientButton.Clicked += SaveIngredientButton_Clicked;
-            saveIngredientButton.Text = "Αποθήκευση νέου υλικού";
+            saveIngredientButton.Text = StringResources.sStoreIngredient;
             ingredientEditStackLayout.Children.Add(_DescriptionEntry);
             ingredientEditStackLayout.Children.Add(availableSwitch);
             ingredientEditStackLayout.Children.Add(saveIngredientButton);
