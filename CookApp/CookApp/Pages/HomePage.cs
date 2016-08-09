@@ -1,6 +1,5 @@
 ﻿using CookApp;
 using CookApp.Pages;
-using CookWhat.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace CookWhat.Main_Page
                         Command = new Command (() => Navigation.PushAsync (new IngredientsPage ()))
                     },
                     new Button() {
-                        Text = "Οι συνταγές μου",
+                        Text = StringResources.sMyRecipes,
                         Command = new Command (() => Navigation.PushAsync (new RecipesPage ()))
                     }
                 }

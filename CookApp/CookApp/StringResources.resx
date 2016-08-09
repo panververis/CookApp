@@ -118,16 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="sAddNewIngredient" xml:space="preserve">
-    <value>Προσθεστε νεο Υλικο</value>
+    <value>Προσθέστε νέο υλικό</value>
+  </data>
+  <data name="sAddNewRecipe" xml:space="preserve">
+    <value>Προσθέστε νέα συνταγή</value>
   </data>
   <data name="sAvailable" xml:space="preserve">
     <value>Διαθέσιμο</value>
   </data>
   <data name="sMyIngredients" xml:space="preserve">
-    <value>Τα Υλικα μου</value>
+    <value>Τα υλικά μου</value>
+  </data>
+  <data name="sMyRecipes" xml:space="preserve">
+    <value>Οι συνταγές μου</value>
   </data>
   <data name="sNewIngredient" xml:space="preserve">
-    <value>Νεο Υλικο</value>
+    <value>Νέο υλικό</value>
+  </data>
+  <data name="sNewRecipe" xml:space="preserve">
+    <value>Νέα Συνταγή</value>
+  </data>
+  <data name="sNewRecipeDescription" xml:space="preserve">
+    <value>Περιγραφή Νέας Συνταγής</value>
   </data>
   <data name="sStoreIngredient" xml:space="preserve">
     <value>Αποθήκευση Υλικού</value>

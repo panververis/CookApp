@@ -31,6 +31,7 @@ namespace CookApp.CookApp_DB.DB
         {
             database = DependencyService.Get<ISQlite>().GetConnection();
             database.CreateTable<Ingredient>();
+            database.CreateTable<Recipe>();
         }
 
         #endregion
@@ -49,6 +50,17 @@ namespace CookApp.CookApp_DB.DB
         }
 
         /// <summary>
+        /// Get All Recipes Operation
+        /// </summary>
+        public IEnumerable<Recipe> GetAllRecipes()
+        {
+            lock (locker)
+            {
+                return (from i in database.Table<Recipe>() select i).ToList();
+            }
+        }
+
+        /// <summary>
         /// Check if Ingredients exist
         /// </summary>
         public bool CheckIfAnyIngredientsExist()
@@ -56,6 +68,17 @@ namespace CookApp.CookApp_DB.DB
             lock (locker)
             {
                 return database.Table<Ingredient>().Any();
+            }
+        }
+
+        /// <summary>
+        /// Check if Recipes exist
+        /// </summary>
+        public bool CheckIfAnyRecipiesExist()
+        {
+            lock (locker)
+            {
+                return database.Table<Recipe>().Any();
             }
         }
 
@@ -71,6 +94,17 @@ namespace CookApp.CookApp_DB.DB
         }
 
         /// <summary>
+        /// Get the first Recipe in the DB Operation
+        /// </summary>
+        public Recipe GetARecipe()
+        {
+            lock (locker)
+            {
+                return database.Table<Recipe>().FirstOrDefault();
+            }
+        }
+
+        /// <summary>
         /// Get a specific Ingredient Operation
         /// </summary>
         public Ingredient GetIngredientByID(int ID)
@@ -78,6 +112,17 @@ namespace CookApp.CookApp_DB.DB
             lock (locker)
             {
                 return database.Table<Ingredient>().FirstOrDefault(x => x.ID == ID);
+            }
+        }
+
+        /// <summary>
+        /// Get a specific Recipe Operation
+        /// </summary>
+        public Recipe GetRecipeByID(int ID)
+        {
+            lock (locker)
+            {
+                return database.Table<Recipe>().FirstOrDefault(x => x.ID == ID);
             }
         }
 
@@ -130,6 +175,36 @@ namespace CookApp.CookApp_DB.DB
             lock (locker)
             {
                 return database.Delete<Ingredient>(ID);
+            }
+        }
+
+        /// <summary>
+        /// Update Recipe operation
+        /// </summary>
+        public int SaveRecipe(Recipe recipe)
+        {
+            lock (locker)
+            {
+                if (recipe.ID != 0)
+                {
+                    database.Update(recipe);
+                    return recipe.ID;
+                }
+                else
+                {
+                    return database.Insert(recipe);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete Recipe by ID operation
+        /// </summary>
+        public int DeleteRecipe(int ID)
+        {
+            lock (locker)
+            {
+                return database.Delete<Recipe>(ID);
             }
         }
 

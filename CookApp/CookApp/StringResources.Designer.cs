@@ -62,11 +62,20 @@ namespace CookApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Προσθεστε νεο Υλικο.
+        ///   Looks up a localized string similar to Προσθέστε νέο υλικό.
         /// </summary>
         internal static string sAddNewIngredient {
             get {
                 return ResourceManager.GetString("sAddNewIngredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Προσθέστε νέα συνταγή.
+        /// </summary>
+        internal static string sAddNewRecipe {
+            get {
+                return ResourceManager.GetString("sAddNewRecipe", resourceCulture);
             }
         }
         
@@ -80,7 +89,7 @@ namespace CookApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Τα Υλικα μου.
+        ///   Looks up a localized string similar to Τα υλικά μου.
         /// </summary>
         internal static string sMyIngredients {
             get {
@@ -89,11 +98,38 @@ namespace CookApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Νεο Υλικο.
+        ///   Looks up a localized string similar to Οι συνταγές μου.
+        /// </summary>
+        internal static string sMyRecipes {
+            get {
+                return ResourceManager.GetString("sMyRecipes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Νέο υλικό.
         /// </summary>
         internal static string sNewIngredient {
             get {
                 return ResourceManager.GetString("sNewIngredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Νέα Συνταγή.
+        /// </summary>
+        internal static string sNewRecipe {
+            get {
+                return ResourceManager.GetString("sNewRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Περιγραφή Νέας Συνταγής.
+        /// </summary>
+        internal static string sNewRecipeDescription {
+            get {
+                return ResourceManager.GetString("sNewRecipeDescription", resourceCulture);
             }
         }
         
