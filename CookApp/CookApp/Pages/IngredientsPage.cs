@@ -14,6 +14,8 @@ namespace CookApp.Pages
     public class IngredientsPage : ContentPage
     {
 
+        #region Locally (page's) defined variables
+
         //Application's DataBase
         public static CookAppDatabase database;
 
@@ -39,6 +41,16 @@ namespace CookApp.Pages
         //the Page's Stack Layout
         StackLayout _ingredientsStackLayout = new StackLayout();
 
+        //the Delete Ingredient Button
+        Button _deleteIngredientButton = new Button();
+
+        //locallly defined variable denoting whether the delete Ingredient button is pressed
+        bool _deleteMode = false;
+
+        #endregion
+
+        #region Page Contsructor
+
         /// <summary>
         /// The Ingredients Page builder
         /// </summary>
@@ -47,12 +59,18 @@ namespace CookApp.Pages
             
         }
 
+        #endregion
+
+        #region Page Overrides
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
             LoadIngredients();
             LoadUI();
         }
+
+        #endregion
 
         #region Page Methods
 
@@ -124,10 +142,32 @@ namespace CookApp.Pages
             //also providing the prepared DataTemplate
             _ingredientsListView.ItemTemplate = ingredientDataTemplate;
             _ingredientsListView.ItemsSource = _ingredientsCollection;
+            _ingredientsListView.ItemSelected += _ingredientsListView_ItemSelected;
             _ingredientsStackLayout.Children.Add(_ingredientsListView);
+
+            //Initializing the "Delete Ingredient" Button
+            _deleteIngredientButton = new Button();
+            _deleteIngredientButton.Image = "delete.png";
+            _deleteIngredientButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
+            _deleteIngredientButton.Clicked += DeleteIngredientButton_Clicked;
+            _ingredientsStackLayout.Children.Add(_deleteIngredientButton);
 
             //lastly, setting the Content of the Ingredients Content Page to the prepared Stack Layout
             Content = _ingredientsStackLayout;
+        }
+
+        #endregion
+
+        #region Delete Ingredient method
+
+        private void DeleteSelectedIngredient(Ingredient selectedIngredient)
+        {
+            if (selectedIngredient == null)
+            {
+                return;
+            }
+            DataBase.DeleteIngredient(selectedIngredient.ID);
+            _ingredientsCollection.Remove(selectedIngredient);
         }
 
         #endregion
@@ -151,6 +191,48 @@ namespace CookApp.Pages
         {
             int ingredientID = Convert.ToInt32((sender as Button).CommandParameter);
             Navigation.PushAsync(new IngredientEditPage(ingredientID), true);
+        }
+
+        /// <summary>
+        /// Clicked Event of the "Delete Ingredient" button
+        /// </summary>
+        private void DeleteIngredientButton_Clicked(object sender, EventArgs e)
+        {
+
+            //if the user has already clicked Delete Modes
+            if (_deleteMode)
+            {
+                _deleteMode = false;
+                _deleteIngredientButton.BackgroundColor = Color.Default;
+            }
+            else
+            {
+                _deleteMode = true;
+                _deleteIngredientButton.BackgroundColor = Color.Red;
+            }
+        }
+
+        /// <summary>
+        /// Item selected Event of the Ingredients ListView
+        /// </summary>
+        private void _ingredientsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (_deleteMode)
+            {
+                if (e.SelectedItem == null)
+                {
+                    return;
+                }
+                Ingredient selectedIngredient = (e.SelectedItem as Ingredient);
+                if (selectedIngredient == null)
+                {
+                    return;
+                }
+                DeleteSelectedIngredient(selectedIngredient);
+            } else
+            {
+                //do nothing
+            }
         }
 
         #endregion
