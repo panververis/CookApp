@@ -36,63 +36,22 @@ namespace CookApp.Pages
         //the ListView displayed
         ListView _ingredientsListView = new ListView();
 
+        //the Page's Stack Layout
+        StackLayout _ingredientsStackLayout = new StackLayout();
+
+        /// <summary>
+        /// The Ingredients Page builder
+        /// </summary>
         public IngredientsPage()
         {
+            
+        }
 
-            //firstly loading all of the Ingredients in the Observable Collection
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             LoadIngredients();
-
-            #region Ingredients ListView UI implementation            
-
-            //initializing the Ingredients ListView DataTemplate (ListView "format")
-            DataTemplate ingredientDataTemplate = new DataTemplate(() =>
-            {
-                Grid grid = new Grid();
-                grid.IsEnabled = true;
-
-                //initializing the Description and the "Available" switch
-                Label descriptionLabel = new Label { FontAttributes = FontAttributes.Bold };
-                Switch availableSwitch = new Switch();
-                availableSwitch.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
-                Button editButton = new Button();
-                editButton.IsEnabled = true;
-                editButton.Image = "edit2.png";
-                editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End,false);
-                editButton.Clicked += editIngredientButton_Clicked;
-
-                //seting the Bindings to the above created controls
-                descriptionLabel.SetBinding(Label.TextProperty, "Description");
-                availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
-                editButton.SetBinding(Button.CommandParameterProperty, "ID");
-                availableSwitch.IsEnabled = false;
-
-                //adding the controls to the ListView
-                grid.Children.Add(descriptionLabel);
-                grid.Children.Add(availableSwitch);
-                grid.Children.Add(editButton);
-
-                return new ViewCell { View = grid };
-            });
-
-            //Initializing the basic Layout (Stack Layout)
-            StackLayout ingredientsStackLayout = new StackLayout();
-
-            //Initializing the "Add Ingredient" Button
-            Button addIngredientButton = new Button();
-            addIngredientButton.Text = StringResources.sAddNewIngredient;
-            addIngredientButton.Clicked += AddIngredientButton_Clicked;
-            ingredientsStackLayout.Children.Add(addIngredientButton);
-
-            //instantiating the Ingredients ListView
-            //also providing the prepared DataTemplate
-            _ingredientsListView.ItemTemplate = ingredientDataTemplate;
-            _ingredientsListView.ItemsSource = _ingredientsCollection;
-            ingredientsStackLayout.Children.Add(_ingredientsListView);
-
-            #endregion
-
-            //lastly, setting the Content of the Ingredients Content Page to the prepared Stack Layout
-            Content = ingredientsStackLayout;
+            LoadUI();
         }
 
         #region Page Methods
@@ -117,6 +76,62 @@ namespace CookApp.Pages
 
         #endregion
 
+        #region LoadUI method
+
+        private void LoadUI()
+        {  
+
+            //initializing the Ingredients ListView DataTemplate (ListView "format")
+            DataTemplate ingredientDataTemplate = new DataTemplate(() =>
+            {
+                Grid grid = new Grid();
+                grid.IsEnabled = false;
+
+                //initializing the Description and the "Available" switch
+                Label descriptionLabel = new Label { FontAttributes = FontAttributes.Bold, FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)) };
+                Switch availableSwitch = new Switch();
+                availableSwitch.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
+                Button editButton = new Button();
+                editButton.IsEnabled = true;
+                editButton.Image = "edit2.png";
+                editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
+                editButton.Clicked += editIngredientButton_Clicked;
+
+                //seting the Bindings to the above created controls
+                descriptionLabel.SetBinding(Label.TextProperty, "Description");
+                availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
+                editButton.SetBinding(Button.CommandParameterProperty, "ID");
+                availableSwitch.IsEnabled = false;
+
+                //adding the controls to the ListView
+                grid.Children.Add(descriptionLabel);
+                grid.Children.Add(availableSwitch);
+                grid.Children.Add(editButton);
+
+                return new ViewCell { View = grid };
+            });
+
+            //Initializing the basic Layout (Stack Layout)
+            _ingredientsStackLayout = new StackLayout();
+
+            //Initializing the "Add Ingredient" Button
+            Button addIngredientButton = new Button();
+            addIngredientButton.Text = StringResources.sAddNewIngredient;
+            addIngredientButton.Clicked += AddIngredientButton_Clicked;
+            _ingredientsStackLayout.Children.Add(addIngredientButton);
+
+            //instantiating the Ingredients ListView
+            //also providing the prepared DataTemplate
+            _ingredientsListView.ItemTemplate = ingredientDataTemplate;
+            _ingredientsListView.ItemsSource = _ingredientsCollection;
+            _ingredientsStackLayout.Children.Add(_ingredientsListView);
+
+            //lastly, setting the Content of the Ingredients Content Page to the prepared Stack Layout
+            Content = _ingredientsStackLayout;
+        }
+
+        #endregion
+
         #endregion
 
         #region Events handling
@@ -126,7 +141,7 @@ namespace CookApp.Pages
         /// </summary>
         private void AddIngredientButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new IngredientEditPage());
+            Navigation.PushAsync(new IngredientEditPage(), true);
         }
 
         /// <summary>
@@ -135,7 +150,7 @@ namespace CookApp.Pages
         private void editIngredientButton_Clicked(object sender, EventArgs e)
         {
             int ingredientID = Convert.ToInt32((sender as Button).CommandParameter);
-            Navigation.PushAsync(new IngredientEditPage(ingredientID));
+            Navigation.PushAsync(new IngredientEditPage(ingredientID), true);
         }
 
         #endregion

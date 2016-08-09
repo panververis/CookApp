@@ -47,13 +47,19 @@ namespace CookApp.Pages
             }
             StackLayout ingredientEditStackLayout = new StackLayout();
             _DescriptionEntry = new Entry();
+            _DescriptionEntry.FontAttributes = FontAttributes.Bold;
+            _DescriptionEntry.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Entry));
             _DescriptionEntry.SetBinding(Entry.TextProperty, "Description");
+            Label availableLabel = new Label { FontAttributes = FontAttributes.Bold, FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)) };
+            availableLabel.Text = StringResources.sAvailable;
             Switch availableSwitch = new Switch();
             availableSwitch.SetBinding(Switch.IsToggledProperty, "Available");
+            availableSwitch.HorizontalOptions = new LayoutOptions(LayoutAlignment.Start, false);
             Button saveIngredientButton = new Button();
             saveIngredientButton.Clicked += SaveIngredientButton_Clicked;
             saveIngredientButton.Text = StringResources.sStoreIngredient;
             ingredientEditStackLayout.Children.Add(_DescriptionEntry);
+            ingredientEditStackLayout.Children.Add(availableLabel);
             ingredientEditStackLayout.Children.Add(availableSwitch);
             ingredientEditStackLayout.Children.Add(saveIngredientButton);
             Content = ingredientEditStackLayout;
@@ -63,6 +69,7 @@ namespace CookApp.Pages
         private void SaveIngredientButton_Clicked(object sender, EventArgs e)
         {
             DataBase.SaveItem(_ingredient);
+            Navigation.PopAsync(true);
         }
 
     }

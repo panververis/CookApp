@@ -120,6 +120,9 @@
   <data name="sAddNewIngredient" xml:space="preserve">
     <value>Προσθεστε νεο Υλικο</value>
   </data>
+  <data name="sAvailable" xml:space="preserve">
+    <value>Διαθέσιμο</value>
+  </data>
   <data name="sMyIngredients" xml:space="preserve">
     <value>Τα Υλικα μου</value>
   </data>
@@ -127,6 +130,6 @@
     <value>Νεο Υλικο</value>
   </data>
   <data name="sStoreIngredient" xml:space="preserve">
-    <value>Απόθήκευση Υλικού;</value>
+    <value>Αποθήκευση Υλικού</value>
   </data>
 </root>
