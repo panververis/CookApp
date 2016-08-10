@@ -19,6 +19,10 @@ namespace CookWhat.Main_Page
                 Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
                 Children = {
                     new Button() {
+                        Text = StringResources.sFindARecipe,
+                        Command = new Command (() => Navigation.PushAsync (new RecipeSearchPage ()))
+                    },
+                    new Button() {
                         Text = StringResources.sMyIngredients,
                         Command = new Command (() => Navigation.PushAsync (new IngredientsPage ()))
                     },

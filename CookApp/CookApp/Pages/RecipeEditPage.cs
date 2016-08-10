@@ -18,7 +18,7 @@ namespace CookApp.Pages
 
         protected Entry _NameEntry;
 
-        protected Entry _DescriptionEntry;
+        protected Editor _DescriptionEditor;
 
         protected int? _RecipeID;
 
@@ -58,15 +58,16 @@ namespace CookApp.Pages
             _NameEntry.FontAttributes = FontAttributes.Bold;
             _NameEntry.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
             _NameEntry.SetBinding(Entry.TextProperty, "Name");
-            _DescriptionEntry = new Entry();
-            _DescriptionEntry.FontAttributes = FontAttributes.Bold;
-            _DescriptionEntry.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Entry));
-            _DescriptionEntry.SetBinding(Entry.TextProperty, "Description");
+            _DescriptionEditor = new Editor();
+            _DescriptionEditor.FontAttributes = FontAttributes.Bold;
+            _DescriptionEditor.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Editor));
+            _DescriptionEditor.SetBinding(Editor.TextProperty, "Description");
+            _DescriptionEditor.HeightRequest = 400;
             Button saveRecipeButton = new Button();
             saveRecipeButton.Clicked += SaveRecipeButton_Clicked;
             saveRecipeButton.Text = StringResources.sStoreRecipe;
             recipeEditStackLayout.Children.Add(_NameEntry);
-            recipeEditStackLayout.Children.Add(_DescriptionEntry);
+            recipeEditStackLayout.Children.Add(_DescriptionEditor);
             recipeEditStackLayout.Children.Add(saveRecipeButton);
             Content = recipeEditStackLayout;
             BindingContext = _recipe;

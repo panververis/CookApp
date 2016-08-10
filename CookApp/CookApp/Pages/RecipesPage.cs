@@ -217,6 +217,7 @@ namespace CookApp.Pages
             }
             else
             {
+                _recipesListView.SelectedItem = null;
                 _deleteMode = true;
                 _deleteRecipeButton.BackgroundColor = Color.Red;
             }

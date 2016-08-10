@@ -126,6 +126,9 @@
   <data name="sAvailable" xml:space="preserve">
     <value>Διαθέσιμο</value>
   </data>
+  <data name="sFindARecipe" xml:space="preserve">
+    <value>Συνταγή της ημέρας</value>
+  </data>
   <data name="sMyIngredients" xml:space="preserve">
     <value>Τα υλικά μου</value>
   </data>

@@ -89,6 +89,15 @@ namespace CookApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Συνταγή της ημέρας.
+        /// </summary>
+        internal static string sFindARecipe {
+            get {
+                return ResourceManager.GetString("sFindARecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Τα υλικά μου.
         /// </summary>
         internal static string sMyIngredients {
