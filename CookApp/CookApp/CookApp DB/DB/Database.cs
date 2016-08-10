@@ -22,10 +22,10 @@ namespace CookApp.CookApp_DB.DB
 
         #endregion
 
-        #region Default "YesItem" DataBase Constructor
+        #region Default "CookApp" DataBase Constructor
 
         /// <summary>
-        /// YesItemDatabase default Constructor, ensuring that the DBTable will be created on the class' initialization
+        /// CookAppDatabase default Constructor, ensuring that the DBTable will be created on the class' initialization
         /// </summary>
         public CookAppDatabase()
         {

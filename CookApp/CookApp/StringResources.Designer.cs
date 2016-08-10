@@ -141,5 +141,14 @@ namespace CookApp {
                 return ResourceManager.GetString("sStoreIngredient", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Αποθήκευση Συνταγής.
+        /// </summary>
+        internal static string sStoreRecipe {
+            get {
+                return ResourceManager.GetString("sStoreRecipe", resourceCulture);
+            }
+        }
     }
 }

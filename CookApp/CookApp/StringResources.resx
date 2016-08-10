@@ -144,4 +144,7 @@
   <data name="sStoreIngredient" xml:space="preserve">
     <value>Αποθήκευση Υλικού</value>
   </data>
+  <data name="sStoreRecipe" xml:space="preserve">
+    <value>Αποθήκευση Συνταγής</value>
+  </data>
 </root>

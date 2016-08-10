@@ -112,6 +112,8 @@ namespace CookApp.Pages
                 Button editButton = new Button();
                 editButton.IsEnabled = true;
                 editButton.Image = "edit2.png";
+                editButton.WidthRequest = 50;
+                editButton.HeightRequest = 50;
                 editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
                 editButton.Clicked += editIngredientButton_Clicked;
 
@@ -148,6 +150,8 @@ namespace CookApp.Pages
             //Initializing the "Delete Ingredient" Button
             _deleteIngredientButton = new Button();
             _deleteIngredientButton.Image = "delete.png";
+            _deleteIngredientButton.WidthRequest = 60;
+            _deleteIngredientButton.HeightRequest = 60;
             _deleteIngredientButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
             _deleteIngredientButton.Clicked += DeleteIngredientButton_Clicked;
             _ingredientsStackLayout.Children.Add(_deleteIngredientButton);
@@ -198,7 +202,6 @@ namespace CookApp.Pages
         /// </summary>
         private void DeleteIngredientButton_Clicked(object sender, EventArgs e)
         {
-
             //if the user has already clicked Delete Modes
             if (_deleteMode)
             {

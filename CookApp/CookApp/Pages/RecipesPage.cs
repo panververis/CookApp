@@ -81,6 +81,8 @@ namespace CookApp.Pages
                 Button editButton = new Button();
                 editButton.IsEnabled = true;
                 editButton.Image = "edit2.png";
+                editButton.WidthRequest = 50;
+                editButton.HeightRequest = 50;
                 editButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
                 editButton.Clicked += editRecipeButton_Clicked;
 
@@ -114,6 +116,8 @@ namespace CookApp.Pages
             //Initializing the "Delete Recipe" Button
             _deleteRecipeButton = new Button();
             _deleteRecipeButton.Image = "delete.png";
+            _deleteRecipeButton.WidthRequest = 60;
+            _deleteRecipeButton.HeightRequest = 60;
             _deleteRecipeButton.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
             _deleteRecipeButton.Clicked += DeleteRecipeButton_Clicked;
             _recipesStackLayout.Children.Add(_deleteRecipeButton);
@@ -144,6 +148,20 @@ namespace CookApp.Pages
 
         #endregion
 
+        #region Delete Recipe method
+
+        private void DeleteSelectedRecipe(Recipe selectedRecipe)
+        {
+            if (selectedRecipe == null)
+            {
+                return;
+            }
+            DataBase.DeleteRecipe(selectedRecipe.ID);
+            _recipesCollection.Remove(selectedRecipe);
+        }
+
+        #endregion
+
         #endregion
 
         #region Event handlers
@@ -153,7 +171,8 @@ namespace CookApp.Pages
         /// </summary>
         private void editRecipeButton_Clicked(object sender, EventArgs e)
         {
-            
+            int recipeID = Convert.ToInt32((sender as Button).CommandParameter);
+            Navigation.PushAsync(new RecipeEditPage(recipeID), true);
         }
 
         /// <summary>
@@ -161,7 +180,7 @@ namespace CookApp.Pages
         /// </summary>
         private void AddRecipeButton_Clicked(object sender, EventArgs e)
         {
-            
+            Navigation.PushAsync(new RecipeEditPage(), true);
         }
 
         /// <summary>
@@ -169,12 +188,38 @@ namespace CookApp.Pages
         /// </summary>
         private void _recipesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            
+            if (_deleteMode)
+            {
+                if (e.SelectedItem == null)
+                {
+                    return;
+                }
+                Recipe selectedRecipe = (e.SelectedItem as Recipe);
+                if (selectedRecipe == null)
+                {
+                    return;
+                }
+                DeleteSelectedRecipe(selectedRecipe);
+            }
+            else
+            {
+                //do nothing
+            }
         }
 
         private void DeleteRecipeButton_Clicked(object sender, EventArgs e)
         {
-            
+            //if the user has already clicked Delete Modes
+            if (_deleteMode)
+            {
+                _deleteMode = false;
+                _deleteRecipeButton.BackgroundColor = Color.Default;
+            }
+            else
+            {
+                _deleteMode = true;
+                _deleteRecipeButton.BackgroundColor = Color.Red;
+            }
         }
 
         #endregion
