@@ -10,7 +10,6 @@ namespace CookApp.Pages
     class RecipeSearchPage : ContentPage
     {
 
-
         #region Locally defined variables
 
         StackLayout _recipeSearchStackLayout = new StackLayout();
