@@ -1,7 +1,11 @@
 ﻿using CookApp.CookApp_DB.DB;
 using CookApp.CookApp_DB.Model;
+using Java.IO;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,9 +65,44 @@ namespace CookApp.Pages
             _NameEntry.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
             _NameEntry.SetBinding(Entry.TextProperty, "Name");
             _recipeImage = new Image();
-            _recipeImage.Source = ImageSource.FromFile("delete.png");
+            string photoFileName = "CookAppImages" + "/" + _RecipeID + "_Master" + ".jpg";
+            File imageFile = new File(photoFileName);
+            if (imageFile.Exists())
+            {
+                _recipeImage.Source = ImageSource.FromFile(photoFileName);
+            } else
+            {
+                _recipeImage.Source = ImageSource.FromFile("delete.png");
+            }
             TapGestureRecognizer imageGestureRecognizer = new TapGestureRecognizer();
-            imageGestureRecognizer.Tapped += ImageGestureRecognizer_Tapped;
+            imageGestureRecognizer.Tapped += async (sender, args) =>
+            {
+
+                await CrossMedia.Current.Initialize();
+                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await DisplayAlert("No Camera", ":( No camera available.", "OK");
+                    return;
+                }
+
+                var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                {
+                    SaveToAlbum = true,
+                    Name = photoFileName
+                });
+
+                if (file == null)
+                    return;
+
+                await DisplayAlert("File Location", file.Path, "OK");
+
+                _recipeImage.Source = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                });
+            };
             _recipeImage.GestureRecognizers.Add(imageGestureRecognizer);
             _DescriptionEditor = new Editor();
             _DescriptionEditor.FontAttributes = FontAttributes.Bold;
@@ -83,25 +122,7 @@ namespace CookApp.Pages
 
         #endregion
 
-        #region Page methods
-
-        /// <summary>
-        /// Take Recipe Photo method
-        /// Also sets the image's Source to the provided photo
-        /// </summary>
-        private void TakeRecipePhoto()
-        {
-            
-        }
-
-        #endregion
-
         #region Page Events
-
-        private void ImageGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            TakeRecipePhoto();
-        }
 
         private void SaveRecipeButton_Clicked(object sender, EventArgs e)
         {
