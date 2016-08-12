@@ -13,7 +13,8 @@ namespace CookApp.Pages
 
         #region Locally defined variables
 
-        
+        StackLayout _recipeSearchStackLayout = new StackLayout();
+        Switch _useAvailableIngredientsSwitch = new Switch();
 
         #endregion
 
@@ -21,7 +22,29 @@ namespace CookApp.Pages
 
         public RecipeSearchPage()
         {
-            //StackLayout recipeSearchStackLayout = new StackLayout();
+            _recipeSearchStackLayout = new StackLayout();
+            Content = _recipeSearchStackLayout;
+        }
+
+        #endregion
+
+        #region Page Overrides
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadUI();
+        }
+
+        #endregion
+
+        #region Page Methods
+
+        private void LoadUI()
+        {
+
+
+
             //_NameEntry = new Entry();
             //_NameEntry.FontAttributes = FontAttributes.Bold;
             //_NameEntry.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
@@ -37,8 +60,6 @@ namespace CookApp.Pages
             //recipeEditStackLayout.Children.Add(_NameEntry);
             //recipeEditStackLayout.Children.Add(_DescriptionEditor);
             //recipeEditStackLayout.Children.Add(saveRecipeButton);
-            //Content = recipeEditStackLayout;
-            //BindingContext = _recipe;
         }
 
         #endregion
